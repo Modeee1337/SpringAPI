@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseMigrationSettings" lastSelectedDirectory="src\main\resources\db\migration" />
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="CSGOInsight" name="Default">
+        <packages>
+          <package value="com.ktu.CSGOInsight" />
+        </packages>
+        <entities>
+          <entity value="com.ktu.csgo.insight.matchmap.MatchMap" />
+          <entity value="com.ktu.csgo.insight.match.Match" />
+          <entity value="com.ktu.csgo.insight.tournament.Tournament" />
+        </entities>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
