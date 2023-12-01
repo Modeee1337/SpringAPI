@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class TournamentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Tournament addTournament(@Valid @RequestBody TournamentDto tournamentDto) {
+    Tournament addTournament(@Validated @RequestBody TournamentDto tournamentDto) {
         Tournament tournament = tournamentMapper.toEntity(tournamentDto);
         return tournamentRepository.save(tournament);
     }

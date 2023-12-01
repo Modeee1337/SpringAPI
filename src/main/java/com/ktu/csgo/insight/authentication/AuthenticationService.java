@@ -5,14 +5,11 @@ import com.ktu.csgo.insight.user.User;
 import com.ktu.csgo.insight.user.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Key;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +39,27 @@ public class AuthenticationService {
                 .setHeaderParam("typ", "JWT")
                 .setSubject(savedUser.getEmail())
                 .claim("ROLE", savedUser.getRole())
+                .signWith(jwtService.getSignInKey(), SignatureAlgorithm.HS256)
+                .setExpiration(new java.util.Date(System.currentTimeMillis() + jwtService.getJwtExpiration()))
+                .compact();
+
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .build();
+    }
+
+    public AuthenticationResponse authenticate(@Valid @RequestBody UserLoginDto request) {
+        var user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new BadRequestException("User with this email does not exist"));
+
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new BadRequestException("Invalid password");
+        }
+
+        var jwtToken = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setSubject(user.getEmail())
+                .claim("ROLE", user.getRole())
                 .signWith(jwtService.getSignInKey(), SignatureAlgorithm.HS256)
                 .setExpiration(new java.util.Date(System.currentTimeMillis() + jwtService.getJwtExpiration()))
                 .compact();
