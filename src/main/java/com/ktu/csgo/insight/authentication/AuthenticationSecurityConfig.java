@@ -24,7 +24,8 @@ public class AuthenticationSecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) ->
-                        requests.requestMatchers("/api/auth/**", "/error").permitAll()
+                        requests.requestMatchers("api/auth/user/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/api/auth/**", "/error").permitAll()
                                 .requestMatchers("/api/tournaments", "/api/tournaments/*").hasAnyRole("ADMIN", "MANAGER")
                                 .requestMatchers("/api/tournaments/*/matches", "/api/tournaments/*/matches/**").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated())

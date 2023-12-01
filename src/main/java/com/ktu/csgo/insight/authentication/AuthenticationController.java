@@ -2,10 +2,7 @@ package com.ktu.csgo.insight.authentication;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,5 +22,13 @@ public class AuthenticationController {
             @RequestBody UserLoginDto request
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<AuthenticationResponse> updateUserRole(
+            @PathVariable Integer id,
+            @RequestBody UserRoleUpdateDto request
+    ) {
+        return ResponseEntity.ok(authenticationService.updateUser(id, request));
     }
 }

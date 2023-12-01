@@ -23,7 +23,7 @@ public class AuthenticationService {
                 .username(request.username())
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))
-                .role(request.role())
+                .role("ROLE_USER")//TODO: iskelti veliau i konfiga
                 .build();
 
         User userExists = userRepository.findByEmail(request.email()).orElse(null);
@@ -60,6 +60,27 @@ public class AuthenticationService {
                 .setHeaderParam("typ", "JWT")
                 .setSubject(user.getEmail())
                 .claim("ROLE", user.getRole())
+                .signWith(jwtService.getSignInKey(), SignatureAlgorithm.HS256)
+                .setExpiration(new java.util.Date(System.currentTimeMillis() + jwtService.getJwtExpiration()))
+                .compact();
+
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .build();
+    }
+
+    public AuthenticationResponse updateUser(Integer id, UserRoleUpdateDto request) {
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException("User with this id does not exist"));
+
+        user.setRole(request.role());
+
+        var savedUser = userRepository.save(user);
+
+        var jwtToken = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setSubject(savedUser.getEmail())
+                .claim("ROLE", savedUser.getRole())
                 .signWith(jwtService.getSignInKey(), SignatureAlgorithm.HS256)
                 .setExpiration(new java.util.Date(System.currentTimeMillis() + jwtService.getJwtExpiration()))
                 .compact();
