@@ -2,7 +2,6 @@ package com.ktu.csgo.insight.matchmap;
 
 import com.ktu.csgo.insight.error.exceptions.BadRequestException;
 import com.ktu.csgo.insight.match.Match;
-import com.ktu.csgo.insight.match.MatchMapper;
 import com.ktu.csgo.insight.match.MatchRepository;
 import com.ktu.csgo.insight.tournament.Tournament;
 import com.ktu.csgo.insight.tournament.TournamentRepository;

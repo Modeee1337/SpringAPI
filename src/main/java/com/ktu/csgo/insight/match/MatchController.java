@@ -10,7 +10,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class MatchController {
 
     //update match
     @PutMapping("/{id}")
-    public Match updateMatch(@PathVariable Long id,@Valid @RequestBody MatchEditDto matchEditDto, @PathVariable Long tournamentId) {
+    public Match updateMatch(@PathVariable Long id, @Valid @RequestBody MatchEditDto matchEditDto, @PathVariable Long tournamentId) {
         Tournament tournament = tournamentRepository.findById(tournamentId).orElseThrow(() -> new EntityNotFoundException("Tournament not found"));
         Match matchFromDb = matchRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Match not found"));
         //check if match belongs to tournament
