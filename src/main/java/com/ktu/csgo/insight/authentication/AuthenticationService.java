@@ -1,8 +1,8 @@
 package com.ktu.csgo.insight.authentication;
 
+import com.ktu.csgo.insight.UserRepository;
 import com.ktu.csgo.insight.error.exceptions.BadRequestException;
 import com.ktu.csgo.insight.user.User;
-import com.ktu.csgo.insight.user.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.validation.Valid;

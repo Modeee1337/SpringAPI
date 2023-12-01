@@ -47,4 +47,8 @@ public class InsightAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getServletPath().equals("/api/authenticate") || request.getServletPath().equals("/api/register");
+    }
 }
