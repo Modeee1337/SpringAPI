@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ktu</groupId>
-    <artifactId>CSGOInsight</artifactId>
+    <artifactId>csgoinsight</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>CSGOInsight</name>
     <description>Project for CSGOInsight application API</description>
