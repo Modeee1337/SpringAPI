@@ -11,6 +11,8 @@
           <entity value="com.ktu.csgo.insight.matchmap.MatchMap" />
           <entity value="com.ktu.csgo.insight.match.Match" />
           <entity value="com.ktu.csgo.insight.tournament.Tournament" />
+          <entity value="com.ktu.csgo.insight.user.User" />
+          <entity value="com.ktu.csgo.insight.user.Authority" />
         </entities>
       </persistence-unit>
     </persistence-units>
